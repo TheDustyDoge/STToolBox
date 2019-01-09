@@ -3,9 +3,14 @@
     using UnityEngine;
     public abstract class TransformActionBase : STActionBase
     {
+        public bool endIsStatic = false;
+        protected Vector3 startVector;
+        protected Vector3 endVector;
+        protected Vector3 lastValue;
+
         public TransformActionBase(Vector3 start, Vector3 end, float seconds)
         {
-            startVector = start;
+            lastValue = startVector = start;
             endVector = end;
 
             elapsedTime = 0;
@@ -15,11 +20,13 @@
 
         protected override void UpdateValues()
         {
-            UpdateActiveVector(Vector3.Lerp(startVector, endVector, CustomLerp(elapsedTime / _runTime)));
+            Vector3 newValue = Vector3.Lerp(startVector, endVector, CustomLerpTime(elapsedTime / _runTime));
+            UpdateActiveVector(newValue);
+            lastValue = newValue;
         }
 
         protected abstract void UpdateActiveVector(Vector3 vector);
-        protected virtual float CustomLerp(float value)
+        protected virtual float CustomLerpTime(float value)
         {
             return Mathf.Clamp01(value);
         }

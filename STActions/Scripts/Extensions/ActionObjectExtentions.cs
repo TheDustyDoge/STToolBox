@@ -20,11 +20,11 @@ namespace STToolBox.ActionKit
         }
         public static void MoveTo(this Transform transform, Vector3 offset, float seconds, string key = MoveAction.defaultKey)
         {
-            transform.RunAction(new MoveAction(transform.position, offset, seconds, true, key));
+            transform.RunAction(new MoveAction(transform.position, offset, seconds, true, true, key));
         }
         public static void MoveToLocal(this Transform transform, Vector3 offset, float seconds, string key = MoveAction.defaultKey)
         {
-            transform.RunAction(new MoveAction(transform.localPosition, offset, seconds, key: key));
+            transform.RunAction(new MoveAction(transform.localPosition, offset, seconds, endIsStatic: true, key: key));
         }
 
         public static void RotateBy(this Transform transform, Vector3 offset, float seconds, string key = RotateAction.defaultKey)
@@ -33,20 +33,20 @@ namespace STToolBox.ActionKit
         }
         public static void RotateTo(this Transform transform, Vector3 offset, float seconds, string key = RotateAction.defaultKey)
         {
-            transform.RunAction(new RotateAction(transform.rotation.eulerAngles, offset, seconds, true, key));
+            transform.RunAction(new RotateAction(transform.rotation.eulerAngles, offset, seconds, true, true, key));
         }
         public static void RotateToLocal(this Transform transform, Vector3 offset, float seconds, string key = RotateAction.defaultKey)
         {
-            transform.RunAction(new RotateAction(transform.localRotation.eulerAngles, offset, seconds, key: key));
+            transform.RunAction(new RotateAction(transform.localRotation.eulerAngles, offset, seconds, endIsStatic: true, key: key));
         }
 
         public static void ScaleBy(this Transform transform, Vector3 offset, float seconds, string key = ScaleAction.defaultKey)
         {
-            transform.RunAction(new ScaleAction(transform.localScale, Mathmatics.Vector3Extentions.Multiply(transform.localScale, offset), seconds, key));
+            transform.RunAction(new ScaleAction(transform.localScale, Mathmatics.Vector3Extentions.Multiply(transform.localScale, offset), seconds, key: key));
         }
         public static void ScaleTo(this Transform transform, Vector3 offset, float seconds, string key = ScaleAction.defaultKey)
         {
-            transform.RunAction(new ScaleAction(transform.localScale, offset, seconds, key));
+            transform.RunAction(new ScaleAction(transform.localScale, offset, seconds, true, key));
         }
 
         // =============== \\

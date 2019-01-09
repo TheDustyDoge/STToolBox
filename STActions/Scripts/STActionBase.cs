@@ -10,6 +10,7 @@
         public bool actionComplete = false;
         public STActionType type;
 
+        protected float lastDeltaTime { get; private set; }
         public float elapsedTime { get; protected set; }
         protected float _runTime;
         public float runTime { get { return GetRuntime(); } set { _runTime = value; } }
@@ -17,15 +18,13 @@
         // -1 to repeat forever
         public int iterations = 1;
 
-        protected Vector3 startVector;
-        protected Vector3 endVector;
-
         public delegate void ActionCallback();
         public event ActionCallback ActionCanceled;
         public event ActionCallback ActionComplete;
 
         public virtual float UpdateAction(float deltaTime)
         {
+            lastDeltaTime = deltaTime;
             float runTime = this.runTime;
             elapsedTime += deltaTime;
 
@@ -34,7 +33,6 @@
 
             if (elapsedTime >= runTime)
             {
-                Debug.Log(elapsedTime + " " + runTime);
                 if (iterations >= 0)
                 {
                     iterations--;

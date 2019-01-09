@@ -11,14 +11,15 @@ namespace STToolBox.ActionKit
         public Vector3 endScale { get { return endVector; } set { endVector = value; } }
         //public bool useWorldScale;
 
-        public ScaleAction(Vector3 from, Vector3 to, float seconds, string key = defaultKey) : base(from, to, seconds)
+        public ScaleAction(Vector3 from, Vector3 to, float seconds, bool endIsStatic = false, string key = defaultKey) : base(from, to, seconds)
         {
+            this.endIsStatic = endIsStatic;
             this.key = key;
         }
 
         protected override void UpdateActiveVector(Vector3 vector)
         {
-            transform.localScale = vector;
+            transform.localScale = endIsStatic ? vector : transform.localScale + vector - lastValue;
         }
     }
 }
